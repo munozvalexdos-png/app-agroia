@@ -31,7 +31,7 @@ const nextConfig: NextConfig = {
       ],
     },
     {
-      source: '/updater.js',
+      source: '/captura-metricas.js',
       headers: [{ key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' }],
     },
     {

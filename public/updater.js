@@ -1,5 +1,5 @@
 // Agro-IA-Tolima - Automatic Version Detection and Remote Cache Invalidator
-const APP_VERSION = '1.0.8'; // Versión local actual
+const APP_VERSION = '1.0.9'; // Versión local actual
 const CHECK_INTERVAL_MS = 30000; // Verificar cada 30 segundos en segundo plano
 
 async function checkAppVersion() {
