@@ -3,37 +3,45 @@ import type { ReactNode } from 'react';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Agro-IA-Tolima - PWA Campo & SIG',
-  description:
-    'AgroIA Tolima Capture — Captura de Campo, Georreferenciación GPS y Diagnóstico Agrícola',
-  applicationName: 'Agro-IA-Tolima',
-  manifest: '/manifest.json',
+  title: 'Agro-IA Tolima',
+  description: 'Aplicación de captura y gestión agrícola del Tolima',
+  applicationName: 'AgroIA',
+  manifest: '/manifest.webmanifest',
   appleWebApp: {
     capable: true,
-    title: 'Agro-IA-Tolima',
-    statusBarStyle: 'black-translucent',
+    statusBarStyle: 'default',
+    title: 'AgroIA',
   },
   icons: {
     icon: [
-      { url: '/agro_ia_tolima_icon_192-v2.png', sizes: '192x192', type: 'image/png' },
-      { url: '/agro_ia_tolima_icon_512-v2.png', sizes: '512x512', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
     ],
-    apple: [{ url: '/agro_ia_tolima_icon_192-v2.png', sizes: '192x192' }],
+    apple: [{ url: '/icon-192.png', sizes: '192x192' }],
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#022c22',
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  viewportFit: 'cover',
+  themeColor: '#15803d',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es">
-      <body className="antialiased bg-slate-950 text-white">{children}</body>
+      <body>
+        {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js', { scope: '/' });
+                });
+              }
+            `,
+          }}
+        />
+      </body>
     </html>
   );
 }

@@ -40,7 +40,17 @@ const nextConfig: NextConfig = {
     },
     {
       source: '/manifest.json',
-      headers: [{ key: 'Cache-Control', value: 'public, max-age=86400' }],
+      headers: [
+        { key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' },
+        { key: 'Content-Type', value: 'application/manifest+json; charset=utf-8' },
+      ],
+    },
+    {
+      source: '/manifest.webmanifest',
+      headers: [
+        { key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' },
+        { key: 'Content-Type', value: 'application/manifest+json; charset=utf-8' },
+      ],
     },
   ],
 };

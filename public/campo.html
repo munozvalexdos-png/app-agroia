@@ -14,16 +14,17 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>Agro-IA-Tolima - PWA Campo & SIG</title>
+    <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/agro_ia_tolima_icon_192-v2.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="/agro_ia_tolima_icon_512-v2.png" />
-    <link rel="apple-touch-icon" sizes="192x192" href="/agro_ia_tolima_icon_192-v2.png" />
-    <link rel="apple-touch-icon" sizes="512x512" href="/agro_ia_tolima_icon_512-v2.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png" />
     <meta property="og:title" content="Agro-IA-Tolima - Innovación Rural Sostenible" />
     <meta property="og:description" content="Sistema de Información Geográfica y Diagnóstico Agrícola del Tolima" />
     <meta property="og:image" content="/agro_ia_tolima_logo_1024-v2.png" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="/updater.js?v=1.0.6" defer></script>
+    <script src="/updater.js?v=1.0.7" defer></script>
     <script type="module" crossorigin src="/assets/index-RVP0x7mL.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-Das9MvGm.css">
   </head>
@@ -32,7 +33,7 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js?v=1.0.6')
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
             .then(reg => {
               console.log('SW Agro-IA-Tolima PWA Registrado:', reg.scope);
               reg.update();
