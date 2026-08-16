@@ -105,19 +105,47 @@
     }
   }
 
+  const ETAPA_OPTIONS = [
+    'Germinación / Almácigo',
+    'Crecimiento Vegetativo',
+    'Floración / Cuajado',
+    'Llenado de Fruto / Grano',
+    'Cosecha / Maduración',
+    'Ganadería Bovina (Carne / Doble Propósito)',
+    'Ganadería Bovina Láctea',
+    'Piscicultura (Tilapia / Cachama - Embalse del Prado)',
+    'Avicultura (Pollo Engorde / Huevo)',
+    'Porcina / Porcicultura',
+    'Apicultura (Miel y Polen)',
+    'Ovinocultura y Caprinocultura',
+    'Equinos (Crianza y Trabajo)',
+  ];
+
   function isEtapaSelect(select) {
     return Array.from(select.options).some(function (option) {
-      return (
-        option.value.indexOf('Germinación') !== -1 ||
-        option.value.indexOf('Ganadería Bovina Láctea') !== -1
-      );
+      return option.value.indexOf('Germinación') !== -1;
     });
+  }
+
+  function ensureEtapaOptions(select) {
+    const existing = new Set(Array.from(select.options).map(function (option) {
+      return option.value;
+    }));
+    for (const value of ETAPA_OPTIONS) {
+      if (existing.has(value)) continue;
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+    }
   }
 
   function hookEtapaSelects(root) {
     const selects = root.querySelectorAll('select');
     for (const select of selects) {
-      if (!isEtapaSelect(select) || select.dataset.agroEtapaHook === '1') continue;
+      if (!isEtapaSelect(select)) continue;
+      ensureEtapaOptions(select);
+      if (select.dataset.agroEtapaHook === '1') continue;
       select.dataset.agroEtapaHook = '1';
       select.addEventListener('change', function () {
         const suggested = suggestFromEtapa(select.value);
@@ -143,6 +171,9 @@
       const labels = root.querySelectorAll('label');
       for (const label of labels) {
         const text = (label.textContent || '').trim();
+        if (text === 'Etapa Fenológica') {
+          label.textContent = 'Etapa Fenológica / Fase Productiva';
+        }
         if (text === 'Hectáreas (Ha)' || text === 'Área / Capacidad Productiva') {
           enhanceLabel(label, 'area', 'Área / Capacidad Productiva', AREA_UNITS, state.area);
         }
@@ -155,12 +186,6 @@
             state.produccion,
           );
         }
-      }
-      const captions = root.querySelectorAll('span');
-      for (const caption of captions) {
-        const text = (caption.textContent || '').trim();
-        if (text === 'Área Sembrada') caption.textContent = 'Área / Capacidad Productiva';
-        if (text === 'Rendimiento Est.') caption.textContent = 'Estimado Producción / Población';
       }
       hookEtapaSelects(root);
     } finally {
@@ -187,16 +212,6 @@
     if (value.datosCampo) decorateRecord(value.datosCampo);
   }
 
-  const origStringify = JSON.stringify;
-  JSON.stringify = function (value, replacer, space) {
-    try {
-      decorateRecord(value);
-    } catch (err) {
-      /* ignore */
-    }
-    return origStringify.call(this, value, replacer, space);
-  };
-
   if (typeof window.fetch === 'function') {
     const origFetch = window.fetch.bind(window);
     window.fetch = function (input, init) {
@@ -204,7 +219,7 @@
         try {
           const parsed = JSON.parse(init.body);
           decorateRecord(parsed);
-          init = Object.assign({}, init, { body: origStringify(parsed) });
+          init = Object.assign({}, init, { body: JSON.stringify(parsed) });
         } catch (err) {
           /* ignore */
         }
@@ -214,17 +229,22 @@
   }
 
   function start() {
-    enhanceForm(document.body);
+    const root = document.getElementById('root') || document.body;
     let scheduled = false;
     const observer = new MutationObserver(function () {
       if (scheduled) return;
       scheduled = true;
-      requestAnimationFrame(function () {
+      setTimeout(function () {
         scheduled = false;
-        enhanceForm(document.body);
-      });
+        enhanceForm(root);
+      }, 250);
     });
-    observer.observe(document.body, { childList: true, subtree: true });
+    observer.observe(root, { childList: true, subtree: true });
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        enhanceForm(root);
+      }, 400);
+    });
   }
 
   if (document.readyState === 'loading') {

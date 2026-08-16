@@ -35,6 +35,14 @@ const nextConfig: NextConfig = {
       headers: [{ key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' }],
     },
     {
+      source: '/assets/captura-app.js',
+      headers: [{ key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' }],
+    },
+    {
+      source: '/assets/index-RVP0x7mL.js',
+      headers: [{ key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' }],
+    },
+    {
       source: '/version.json',
       headers: [{ key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' }],
     },
