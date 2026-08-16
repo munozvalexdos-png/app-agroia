@@ -1,5 +1,5 @@
 // Agro-IA-Tolima - Automatic Version Detection and Remote Cache Invalidator
-const APP_VERSION = '1.0.5'; // Versión local actual
+const APP_VERSION = '1.0.6'; // Versión local actual
 const CHECK_INTERVAL_MS = 30000; // Verificar cada 30 segundos en segundo plano
 
 async function checkAppVersion() {
@@ -125,7 +125,7 @@ setInterval(checkAppVersion, CHECK_INTERVAL_MS);
 
 // 4. Registro y control de Service Worker con auto-activación
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js?v=1.0.5').then((reg) => {
+  navigator.serviceWorker.register('/sw.js?v=1.0.6').then((reg) => {
     // Forzar comprobación de actualización remota inmediatamente al iniciar
     reg.update();
 

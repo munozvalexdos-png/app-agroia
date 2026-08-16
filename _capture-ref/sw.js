@@ -1,5 +1,5 @@
 // Agro-IA-Tolima PWA Service Worker - Automatic Cache Busting & Remote Updates
-const CACHE_NAME = 'agro-ia-tolima-v5';
+const CACHE_NAME = 'agro-ia-tolima-v6';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

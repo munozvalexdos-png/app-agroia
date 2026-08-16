@@ -23,7 +23,7 @@
     <meta property="og:description" content="Sistema de Información Geográfica y Diagnóstico Agrícola del Tolima" />
     <meta property="og:image" content="/agro_ia_tolima_logo_1024-v2.png" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="/updater.js?v=1.0.5" defer></script>
+    <script src="/updater.js?v=1.0.6" defer></script>
     <script type="module" crossorigin src="/assets/index-RVP0x7mL.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-Das9MvGm.css">
   </head>
@@ -32,7 +32,7 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js?v=1.0.5')
+          navigator.serviceWorker.register('/sw.js?v=1.0.6')
             .then(reg => {
               console.log('SW Agro-IA-Tolima PWA Registrado:', reg.scope);
               reg.update();
