@@ -1,11 +1,12 @@
 import localForage from 'localforage';
+import type { DatosCampoCaptura } from '@/lib/types/captura';
 
 const ADMIN_ENDPOINT = process.env.NEXT_PUBLIC_ADMIN_VISOR_URL || 'http://127.0.0.1:3000/api/capturas';
 
 export interface CapturaOffline {
   id: string;
   predioId: string;
-  datosCampo: Record<string, any>;
+  datosCampo: DatosCampoCaptura;
   fotosComprimidas: string[];
   timestamp: number;
 }
@@ -55,7 +56,7 @@ export async function sincronizarPendientesConAdmin() {
         setTimeout(sincronizarPendientesConAdmin, 1000);
       }
     }
-  } catch (error) {
+  } catch {
     console.warn('Servidor administrativo inaccesible. Se reintentará al recuperar conexión.');
   }
 }
