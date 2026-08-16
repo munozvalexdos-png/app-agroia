@@ -215,16 +215,26 @@
   if (typeof window.fetch === 'function') {
     const origFetch = window.fetch.bind(window);
     window.fetch = function (input, init) {
+      let decorated = null;
       if (init && typeof init.body === 'string') {
         try {
           const parsed = JSON.parse(init.body);
           decorateRecord(parsed);
           init = Object.assign({}, init, { body: JSON.stringify(parsed) });
+          decorated = parsed;
         } catch (err) {
           /* ignore */
         }
       }
-      return origFetch(input, init);
+      const result = origFetch(input, init);
+      if (decorated) {
+        try {
+          window.dispatchEvent(new CustomEvent('agroia:campo-record', { detail: decorated }));
+        } catch (err) {
+          /* ignore */
+        }
+      }
+      return result;
     };
   }
 

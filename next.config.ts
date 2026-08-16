@@ -35,6 +35,10 @@ const nextConfig: NextConfig = {
       headers: [{ key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' }],
     },
     {
+      source: '/visor-queue-manager.js',
+      headers: [{ key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' }],
+    },
+    {
       source: '/assets/captura-app.js',
       headers: [{ key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' }],
     },

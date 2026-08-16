@@ -25,7 +25,7 @@
           return;
         }
         var updater = document.createElement('script');
-        updater.src = '/updater.js?v=1.0.10';
+        updater.src = '/updater.js?v=1.0.11';
         updater.defer = true;
         document.head.appendChild(updater);
         if ('serviceWorker' in navigator) {
@@ -37,6 +37,19 @@
         }
       })();
     </script>
-    <script type="module" src="/assets/captura-app.js?v=1.0.10"></script>
+    <script>
+      window.__AGROIA_VISOR__ = {
+        adminOrigin: (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+          ? 'http://localhost:3000'
+          : 'https://visor-agrotolima.vercel.app',
+        ingestPath: '/api/capturas',
+        proxyUrl: '/api/campo/sync',
+        audience: 'admin'
+      };
+      window.__AGROIA_VISOR__.ingestUrl = window.__AGROIA_VISOR__.adminOrigin + window.__AGROIA_VISOR__.ingestPath;
+    </script>
+    <script src="/visor-queue-manager.js?v=1.0.11"></script>
+    <script src="/captura-metricas.js?v=1.0.11"></script>
+    <script type="module" src="/assets/captura-app.js?v=1.0.11"></script>
   </body>
 </html>
